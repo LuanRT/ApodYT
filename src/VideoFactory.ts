@@ -1,3 +1,5 @@
+// TODO: Maybe get rid of videoshown and render the video using ffmpeg alone or use something else.
+
 // @ts-ignore
 import videoshow from 'videoshow';
 import { tmpdir } from 'os';
