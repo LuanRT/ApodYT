@@ -1,4 +1,4 @@
-// TODO: Maybe get rid of videoshown and render the video using ffmpeg alone or use something else.
+// TODO: Maybe get rid of videoshow and render the video using ffmpeg alone or use something else.
 
 // @ts-ignore
 import videoshow from 'videoshow';
