@@ -1,6 +1,6 @@
 {
   "name": "apod",
-  "version": "1.0.0",
+  "version": "1.0.5",
   "description": "A fully automated YouTube Channel dedicated to astronomy",
   "main": "dist/App.js",
   "scripts": {
