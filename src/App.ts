@@ -14,7 +14,7 @@ import { Readable } from 'stream';
 (async () => {
   const yt = await Innertube.create({ cache: new UniversalCache() });
 
-  yt.session.on('auth', (data: any) => HerokuApi.setCreds(data.credentials));
+  yt.session.on('auth', (data: any) => console.info('Successfully logged in:', data));
   yt.session.on('update-credentials', (data: any) => HerokuApi.setCreds(data.credentials));
   yt.session.on('auth-pending', (data: any) => console.info(data));
 
@@ -25,7 +25,7 @@ import { Readable } from 'stream';
   } as Credentials : undefined);
   
   const info = await yt.account.getInfo();
-  console.info('Logged in as:', info);
+  console.info('Account info:', info);
   
   const upload_rule = new RecurrenceRule();
   upload_rule.hour = 7;
@@ -64,7 +64,7 @@ import { Readable } from 'stream';
     const description = `${apod.explanation}\n\n${nasa_credit}\n\n${song_credit}`;
 
     const upload = await yt.studio.upload(file, {
-      title: apod.title,
+      title: `${apod.title}(see description)`,
       description: description,
       privacy: 'PUBLIC'
     });
