@@ -27,6 +27,7 @@
     "node-schedule": "^2.1.0",
     "undici": "^5.8.0",
     "videoshow": "^0.1.12",
-    "youtubei.js": "github:LuanRT/YouTube.js"
+    "youtubei.js": "github:LuanRT/YouTube.js",
+    "mp3-duration": "^1.1.0"
   }
 }

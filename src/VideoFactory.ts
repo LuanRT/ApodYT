@@ -5,11 +5,11 @@ import videoshow from 'videoshow';
 import { tmpdir } from 'os';
 
 export default class VideoFactory {
-  static render(images: object[]): Promise<string> {
+  static render(images: object[], audio: { path: string, duration: number }): Promise<string> {
     return new Promise((resolve, reject) => {
       const settings = {
-        fps: 25,
-        loop: 20,
+        fps: 15,
+        loop: audio.duration + 10,
         transition: true,
         transitionDuration: 2,
         videoBitrate: 4024,
@@ -41,8 +41,8 @@ export default class VideoFactory {
       };
 
       videoshow(images, settings)
-        .audio('./resources/last-and-first-light.mp3')
-        .save(`${tmpdir()}/.apod_gen_video.mp4`)
+        .audio(audio.path)
+        .save(`${tmpdir()}/${Date.now()}.mp4`)
         .on('error', (err: any) => reject(err))
         .on('end', (output: string) => resolve(output));
     });
