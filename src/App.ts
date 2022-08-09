@@ -28,11 +28,11 @@ import durarion from 'mp3-duration';
     refresh_token: process.env.refresh_token,
     expires: new Date(process.env.expires || '')
   } as Credentials : undefined);
-  
+
   const info = await yt.account.getInfo();
- 
+
   console.info('Account info:', info);
-  
+
   const upload_rule = new RecurrenceRule();
   upload_rule.hour = 7;
   upload_rule.minute = 30;
@@ -40,13 +40,12 @@ import durarion from 'mp3-duration';
 
   scheduleJob(upload_rule, async () => {
     const apod = await NasaApi.getAPOD();
-    
+
     const image = await downloadImage(apod.media_type === 'image' ? apod.url : apod.thumbnail_url);
-    
+
     const audio = await TTSApi.speak(apod.explanation, `${tmpdir()}/${Date.now()}.mp3`);
     const duration = await durarion(audio);
-    
-    // Video generation 
+
     const gen_video = await VideoFactory.render([ {
       path: image,
       caption: apod.title,
@@ -63,7 +62,7 @@ import durarion from 'mp3-duration';
       `Image Credit & Copyright: ${apod.copyright || 'N/A'}`;
 
     const description = `${apod.explanation}\n\n${nasa_credit}`;
-    
+
     const upload = await yt.studio.upload(file, {
       title: apod.title,
       description: description,
