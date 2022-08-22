@@ -9,12 +9,12 @@ export default class VideoFactory {
     return new Promise((resolve, reject) => {
       const settings = {
         fps: 15,
-        loop: audio.duration + 10,
+        loop: audio.duration + 5,
         transition: true,
         transitionDuration: 2,
         videoBitrate: 4024,
         videoCodec: 'libx264',
-        size: '1080x?',
+        size: '720x?',
         audioBitrate: '128k',
         audioChannels: 2,
         format: 'mp4',

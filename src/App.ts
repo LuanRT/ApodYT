@@ -59,7 +59,7 @@ import durarion from 'mp3-duration';
     const nasa_credit =
       `Direct image/video url: ${apod.url}\n\n` +
       'This can also be found at: https://apod.nasa.gov/apod/astropix.html\n' +
-      `Image Credit & Copyright: ${apod.copyright || 'N/A'}`;
+      `Image Credit & Copyright: ${apod?.copyright || 'N/A'}`;
 
     const description = `${apod.explanation}\n\n${nasa_credit}`;
 
