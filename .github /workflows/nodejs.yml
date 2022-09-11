@@ -1,0 +1,32 @@
+name: Upload
+
+on:
+  schedule:
+    - cron: '0 7 * * *'
+
+env:
+    NASA_API_KEY: ${{ secrets.NASA_API_KEY }}
+    ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
+    REFRESH_TOKEN: ${{ secrets.REFRESH_TOKEN }}
+    EXPIRES: ${{ secrets.EXPIRES }}
+    
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [18.x]
+        os: [ubuntu-latest]
+
+    steps:
+    - uses: actions/checkout@v3
+    - uses: FedericoCarboni/setup-ffmpeg@v1
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v3
+      with:
+        node-version: ${{ matrix.node-version }}
+    - name: npm install, build, and run
+      run: |
+        npm install
+        npm run build
+        node .
