@@ -2,7 +2,7 @@ name: Upload
 
 on:
   schedule:
-    - cron: '0 7 * * *'
+    - cron: '0 10 * * *'
 
 env:
     NASA_API_KEY: ${{ secrets.NASA_API_KEY }}
