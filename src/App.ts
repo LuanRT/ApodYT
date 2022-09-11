@@ -11,7 +11,7 @@ import TTSApi from './TTSApi';
 import VideoFactory from './VideoFactory';
 
 // @ts-ignore
-import durarion from 'mp3-duration';
+import getDuration from 'mp3-duration';
 
 (async () => {
   const yt = await Innertube.create({ cache: new UniversalCache() });
@@ -34,7 +34,7 @@ import durarion from 'mp3-duration';
 
   const image = await downloadImage(apod.media_type === 'image' ? apod.url : apod.thumbnail_url);
   const audio = await TTSApi.speak(apod.explanation, `${tmpdir()}/${Date.now()}.mp3`);
-  const duration = await durarion(audio);
+  const duration = await getDuration(audio);
 
   const gen_video = await VideoFactory.render([ {
     path: image,
