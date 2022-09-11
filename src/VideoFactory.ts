@@ -9,7 +9,7 @@ export default class VideoFactory {
     return new Promise((resolve, reject) => {
       const settings = {
         fps: 15,
-        loop: audio.duration + 5,
+        loop: audio.duration + 2,
         transition: true,
         transitionDuration: 2,
         videoBitrate: 4024,
