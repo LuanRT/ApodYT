@@ -60,6 +60,18 @@ import getDuration from 'mp3-duration';
     privacy: 'PUBLIC'
   });
 
+  await yt.studio.updateVideoMetadata(upload.data.videoId, {
+    tags: [
+      'Astronomy',
+      'Science',
+      'NASA',
+      'APOD',
+      'Space'
+    ],
+    category: 27, // Education
+    license: 'creative_commons'
+  });
+
   console.info(`Successfully uploaded "${apod.title}" (${upload.data.videoId})!`);
 })();
 
