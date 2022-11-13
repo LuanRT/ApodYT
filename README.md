@@ -6,7 +6,7 @@ I made this because :
 2. I wanted to demonstrate [YouTube.js](https://github.com/LuanRT/YouTube.js)'s capabilities.
 
 Channel URL:
-https://youtube.com/channel/UCWR1VpBEbXEO5uAFtSQincg
+https://www.youtube.com/@apodyt
 
 ---
 
