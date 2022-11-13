@@ -5,7 +5,8 @@ I made this because :
 1. I love astronomy and science!
 2. I wanted to demonstrate [YouTube.js](https://github.com/LuanRT/YouTube.js)'s capabilities.
 
-**Channel:** https://youtube.com/channel/UCWR1VpBEbXEO5uAFtSQincg
+Channel URL:
+https://youtube.com/channel/UCWR1VpBEbXEO5uAFtSQincg
 
 ---
 
