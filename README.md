@@ -1,5 +1,18 @@
-Uploads a different astronomy picture to YouTube every day. 
+A small APOD channel that [runs](https://github.com/LuanRT/ApodYT/actions) entirely on GitHub actions! 
+
+I made this because :
+
+1. I love astronomy and science!
+2. I wanted to demonstrate [YouTube.js](https://github.com/LuanRT/YouTube.js)'s capabilities.
 
 **Channel:** https://youtube.com/channel/UCWR1VpBEbXEO5uAFtSQincg
+
+---
+
+**Note:**
+
+The tools demonstrated here should not be used to create spam bots. That goes against YouTube's Terms of Service and doing so hurts the users of the site and the reverse engineering community.
+
+Thanks.
 
 <sup>Powered by [YouTube.js](https://github.com/LuanRT/YouTube.js)</sup>
