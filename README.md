@@ -3,7 +3,7 @@ A small APOD channel that [runs](https://github.com/LuanRT/ApodYT/actions) entir
 I made this because :
 
 1. I love astronomy and science!
-2. I wanted to demonstrate [YouTube.js](https://github.com/LuanRT/YouTube.js)'s capabilities.
+2. I wanted to demonstrate [YouTube.js](https://github.com/LuanRT/YouTube.js)' capabilities.
 
 Channel URL:
 https://www.youtube.com/@apodyt
