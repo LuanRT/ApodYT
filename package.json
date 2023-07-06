@@ -1,8 +1,9 @@
 {
-  "name": "apod",
+  "name": "apodyt",
   "version": "2.0.0",
   "description": "A fully automated YouTube Channel dedicated to astronomy",
-  "main": "dist/App.js",
+  "main": "dist/main.js",
+  "private": true,
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "npx tsc",
@@ -23,6 +24,6 @@
     "mp3-duration": "^1.1.0",
     "undici": "^5.19.1",
     "videoshow": "^0.1.12",
-    "youtubei.js": "^2.7.0"
+    "youtubei.js": "^5.2.1"
   }
 }

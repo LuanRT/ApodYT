@@ -1,10 +1,9 @@
 import * as fs from 'fs';
-
 import { fetch } from 'undici';
 import { tmpdir } from 'os';
 
 import { Innertube, UniversalCache } from 'youtubei.js';
-import { Credentials } from 'youtubei.js/dist/src/core/OAuth';
+import type { Credentials } from 'youtubei.js';
 
 import NasaApi from './NasaApi';
 import TTSApi from './TTSApi';
@@ -14,7 +13,7 @@ import VideoFactory from './VideoFactory';
 import getDuration from 'mp3-duration';
 
 (async () => {
-  const yt = await Innertube.create({ cache: new UniversalCache() });
+  const yt = await Innertube.create({ cache: new UniversalCache(false), generate_session_locally: true });
 
   yt.session.on('auth', () => console.info('Successfully logged in'));
   yt.session.on('update-credentials', () => console.info('Credentials updated'));
@@ -32,6 +31,8 @@ import getDuration from 'mp3-duration';
 
   const apod = await NasaApi.getAPOD();
 
+  console.info('APOD:', apod);
+
   const image = await downloadImage(apod.media_type === 'image' ? apod.url : apod.thumbnail_url);
   const audio = await TTSApi.speak(apod.explanation, `${tmpdir()}/${Date.now()}.mp3`);
   const duration = await getDuration(audio);
@@ -48,9 +49,9 @@ import getDuration from 'mp3-duration';
   const file = fs.readFileSync(gen_video);
 
   const nasa_credit =
-  `Direct image/video url: ${apod.url || 'N/A'}\n\n` +
-  'This can also be found at: https://apod.nasa.gov/apod/astropix.html\n' +
-  `Image Credit & Copyright: ${apod?.copyright || 'N/A'}`;
+    `Direct image/video url: ${apod.url || 'N/A'}\n\n` +
+    'This can also be found at: https://apod.nasa.gov/apod/astropix.html\n' +
+    `Image Credit & Copyright: ${apod?.copyright || 'N/A'}`;
 
   const description = `${apod.explanation}\n\n${nasa_credit}`;
 
@@ -60,6 +61,7 @@ import getDuration from 'mp3-duration';
     privacy: 'PUBLIC'
   });
 
+  // @ts-ignore - TODO: Fix typings in YouTube.js
   await yt.studio.updateVideoMetadata(upload.data.videoId, {
     tags: [
       'Astronomy',
@@ -72,10 +74,10 @@ import getDuration from 'mp3-duration';
     license: 'creative_commons'
   });
 
-  console.info(`Successfully uploaded "${apod.title}" (${upload.data.videoId})!`);
+  console.info(`Successfully uploaded "${apod.title}"!`);
 })();
 
-async function downloadImage(url: string): Promise < string > {
+async function downloadImage(url: string): Promise<string> {
   const response = await fetch(url);
 
   if (!response.body)
