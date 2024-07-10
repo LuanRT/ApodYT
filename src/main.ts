@@ -1,31 +1,36 @@
 import * as fs from 'fs';
 import { fetch } from 'undici';
 import { tmpdir } from 'os';
+import { Innertube, OAuth2Tokens, UniversalCache } from 'youtubei.js';
 
-import { Innertube, UniversalCache } from 'youtubei.js';
-import type { Credentials } from 'youtubei.js';
-
-import NasaApi from './NasaApi';
-import TTSApi from './TTSApi';
-import VideoFactory from './VideoFactory';
+import NasaApi from './utils/NasaApi';
+import TTSApi from './utils/TTSApi';
+import VideoFactory from './utils/VideoFactory';
 
 // @ts-ignore
 import getDuration from 'mp3-duration';
 
 (async () => {
-  const yt = await Innertube.create({ cache: new UniversalCache(false), generate_session_locally: true });
+  const innertube = await Innertube.create({
+    cache: new UniversalCache(false),
+    retrieve_player: false
+  });
 
-  yt.session.on('auth', () => console.info('Successfully logged in'));
-  yt.session.on('update-credentials', () => console.info('Credentials updated'));
-  yt.session.on('auth-pending', (data: any) => console.info(data));
+  innertube.session.on('auth', () => console.info('Successfully logged in'));
+  innertube.session.on('update-credentials', () => console.info('Credentials updated'));
+  innertube.session.on('auth-pending', (data) => console.info(data));
 
-  await yt.session.signIn(Reflect.has(process.env, 'ACCESS_TOKEN') ? {
-    access_token: process.env.ACCESS_TOKEN,
-    refresh_token: process.env.REFRESH_TOKEN,
-    expires: new Date(process.env.EXPIRES || '')
-  } as Credentials : undefined);
+  const { ACCESS_TOKEN, REFRESH_TOKEN, EXPIRY_DATE } = process.env;
 
-  const info = await yt.account.getInfo();
+  const oauthTokens = Reflect.has(process.env, 'ACCESS_TOKEN') ? {
+    access_token: ACCESS_TOKEN,
+    refresh_token: REFRESH_TOKEN,
+    expiry_date: EXPIRY_DATE
+  } as OAuth2Tokens : undefined;
+
+  await innertube.session.signIn(oauthTokens);
+
+  const info = await innertube.account.getInfo();
 
   console.info('Account info:', info);
 
@@ -49,26 +54,26 @@ import getDuration from 'mp3-duration';
   const file = fs.readFileSync(gen_video);
 
   const nasa_credit =
-    `Direct image/video url: ${apod.url || 'N/A'}\n\n` +
+    `Image URL: ${apod.url || 'N/A'}\n\n` +
     'This can also be found at: https://apod.nasa.gov/apod/astropix.html\n' +
-    `Image Credit & Copyright: ${apod?.copyright || 'N/A'}`;
+    `Credit & Copyright: ${apod?.copyright || 'N/A'}`;
 
   const description = `${apod.explanation}\n\n${nasa_credit}`;
 
-  const upload = await yt.studio.upload(file.buffer, {
+  const upload = await innertube.studio.upload(file.buffer, {
     title: apod.title,
     description: description,
     privacy: 'PUBLIC'
   });
 
-  // @ts-ignore - TODO: Fix typings in YouTube.js
-  await yt.studio.updateVideoMetadata(upload.data.videoId, {
+  await innertube.studio.updateVideoMetadata(upload.data.videoId, {
     tags: [
       'Astronomy',
       'Science',
       'NASA',
       'APOD',
-      'Space'
+      'Space',
+      'Automated'
     ],
     category: 27, // Education
     license: 'creative_commons'

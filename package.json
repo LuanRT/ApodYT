@@ -1,6 +1,6 @@
 {
   "name": "apodyt",
-  "version": "2.0.0",
+  "version": "2.1.0",
   "description": "A fully automated YouTube Channel dedicated to astronomy",
   "main": "dist/main.js",
   "private": true,
@@ -24,6 +24,6 @@
     "mp3-duration": "^1.1.0",
     "undici": "^5.28.3",
     "videoshow": "^0.1.12",
-    "youtubei.js": "^5.2.1"
+    "youtubei.js": "^10.1.0"
   }
 }
