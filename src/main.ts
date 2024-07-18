@@ -16,16 +16,16 @@ import getDuration from 'mp3-duration';
     retrieve_player: false
   });
 
-  innertube.session.on('auth', () => console.info('Successfully logged in'));
-  innertube.session.on('update-credentials', () => console.info('Credentials updated'));
+  innertube.session.on('auth', () => console.info('Successfully logged in.'));
+  innertube.session.on('update-credentials', () => console.info('Credentials updated.'));
   innertube.session.on('auth-pending', (data) => console.info(data));
 
-  const { ACCESS_TOKEN, REFRESH_TOKEN, EXPIRY_DATE } = process.env;
+  const { ACCESS_TOKEN, REFRESH_TOKEN, EXPIRES } = process.env;
 
   const oauthTokens = Reflect.has(process.env, 'ACCESS_TOKEN') ? {
     access_token: ACCESS_TOKEN,
     refresh_token: REFRESH_TOKEN,
-    expiry_date: EXPIRY_DATE
+    expiry_date: EXPIRES
   } as OAuth2Tokens : undefined;
 
   await innertube.session.signIn(oauthTokens);
