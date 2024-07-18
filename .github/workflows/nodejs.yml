@@ -3,6 +3,7 @@ name: Upload
 on:
   schedule:
     - cron: '0 10 * * *'
+  workflow_dispatch:
 
 env:
     NASA_API_KEY: ${{ secrets.NASA_API_KEY }}
