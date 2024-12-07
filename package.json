@@ -23,7 +23,7 @@
   },
   "dependencies": {
     "mp3-duration": "^1.1.0",
-    "undici": "^5.28.3",
+    "undici": "6.19.2",
     "videoshow": "^0.1.12",
     "youtubei.js": "^12.0.0"
   }
